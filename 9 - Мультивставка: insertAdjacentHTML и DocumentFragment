@@ -1,0 +1,73 @@
+var ul = document.querySelector('ul');
+ul.insertAdjacentHTML('beforeEnd', '<li>3</li><li>4</li><li>5</li>');
+
+
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style type="text/css" media="all">
+      table, tr, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+    
+  </head>
+
+<body>
+
+
+  <table>
+<tbody><tr>
+  <th>Имя</th>
+  <th>Фамилия</th>
+  <th>Отчество</th>
+  <th>Возраст</th>
+</tr>
+<tr>
+  <td>Вася</td>
+  <td>Петров</td>
+  <td>Александрович</td>
+  <td>10</td>
+</tr>
+<tr>
+  <td>Петя</td>
+  <td>Иванов</td>
+  <td>Петрович</td>
+  <td>15</td>
+</tr>
+<tr>
+  <td>Владимир</td>
+  <td>Ленин</td>
+  <td>Ильич</td>
+  <td>9</td>
+</tr>
+</tbody></table>
+
+<script type="text/javascript" charset="utf-8">
+  var table = document.querySelector('table');
+  var tBody = table.children[0];
+  table.removeChild(tBody);
+  
+  var array = [];
+  var trs = tBody.querySelectorAll('tr');
+  for (let i = 1; i < trs.length; i++) {
+    array.push({
+      elem: trs[i],
+      age: parseInt(trs[i].children[3].innerHTML)
+    });
+  }
+  array.sort(function(a, b) {
+    return a.age - b.age;
+  });
+  for (let i = 0; i < array.length; i++) {
+    tBody.appendChild(array[i].elem);
+  }
+  table.appendChild(tBody);
+  
+</script>
+
+</body>
+
+</html>

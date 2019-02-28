@@ -1,0 +1,38 @@
+elem.scrollHeight - elem.scrollTop - elem.clientHeight
+
+
+
+elem.offsetWidth - elem.clientWidth
+
+
+
+var div = document.getElementById('moving-div')
+div.style.position = 'absolute'
+div.style.right = div.style.top = 0
+
+var mockDiv = document.createElement('div');
+mockDiv.style.height = div.offsetHeight + "px";
+mockDiv.style.width = div.offsetWidth + "px";
+document.body.insertBefore(mockDiv, div.nextSibling);
+
+
+
+var field = document.getElementById('field');
+var ball = document.getElementById('ball');
+ball.style.top = Math.round(field.clientHeight/2 - ball.offsetHeight/2) + "px";
+ball.style.left = Math.round(field.clientWidth/2 - ball.offsetWidth/2)  + "px";
+
+
+
+var elem = document.getElementById("elem");
+var paddingLeft = parseInt(getComputedStyle(elem).paddingLeft);
+var paddingRight = parseInt(getComputedStyle(elem).paddingRight);
+elem.style.width = Math.round(document.body.clientWidth - paddingLeft - paddingRight) + "px";
+
+
+
+1. getComputedStyle не работает в IE8-.
+2. clientWidth возвращает число, а getComputedStyle(...).width – строку, на конце px.
+3. getComputedStyle не всегда даст ширину, он может вернуть, к примеру, "auto" для инлайнового элемента.
+4. clientWidth соответствует внутренней видимой области элемента, *включая padding, а CSS-ширина width при стандартном значении box-sizing соответствует зоне внутри padding.
+5. Если есть полоса прокрутки, то некоторые браузеры включают её ширину в width, а некоторые – нет.

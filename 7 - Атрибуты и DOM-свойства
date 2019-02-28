@@ -1,0 +1,20 @@
+<body>
+
+  <div id="widget" data-widget-name="menu">Выберите жанр</div>
+
+  <script>
+    var widget = document.getElementById('widget');
+    var value = widget.dataset.widgetName;
+    alert(value);
+  </script>
+</body>
+
+
+
+var links = document.getElementsByTagName('a');
+for (let i = 0; i < links.length; i++) {
+  if (links[i].href && (links[i].getAttribute('href').search("://") != -1) &&
+        links[i].getAttribute('href').search('http://internal.com') == -1) {
+    links[i].classList.add("external");
+  }
+}

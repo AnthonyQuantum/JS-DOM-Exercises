@@ -1,0 +1,75 @@
+document.querySelectorAll('table label')
+document.querySelector('table').rows[0].cells[0]
+document.querySelectorAll('form')[1]
+document.querySelector('form[name="search"]')
+document.querySelector('form[name="search"] input')
+document.querySelector('[name="info[0]"]')
+document.querySelector('form[name="search-person"] [name="info[0]"]')
+
+
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <ul>
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+    var container = document.createElement('div');
+    var lis = document.getElementsByTagName('li');
+    
+    for (let i = 0; i < lis.length; i++) {
+      container.innerText += lis[i].childNodes[0].textContent.trim();
+      container.innerText += " - ";
+      container.innerText += lis[i].getElementsByTagName('li').length;
+      container.innerText += "\n";
+    }
+    
+    
+    document.body.appendChild(container);
+  </script>
+
+</body>
+
+</html>

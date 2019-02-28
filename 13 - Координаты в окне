@@ -1,0 +1,58 @@
+var coords1 = "1: " + field.getBoundingClientRect().left + ":" + field.getBoundingClientRect().top;
+    console.log(coords1);
+    var coords2 = "2: " + field.getBoundingClientRect().right + ":" + field.getBoundingClientRect().bottom;
+    console.log(coords2);
+    var coords3 = "3: " + (field.getBoundingClientRect().left + field.clientLeft) + ":" + (field.getBoundingClientRect().top + field.clientTop);
+    console.log(coords3);
+    var coords4 = "4: " + (field.getBoundingClientRect().right - field.clientLeft) + ":" + (field.getBoundingClientRect().bottom - field.clientTop);
+    console.log(coords4);
+
+
+
+/**
+     * Позиционирует элемент elem относительно элемента anchor, как указано в
+     * в position.
+     *
+     * @param {Node} anchor     Элемент-якорь, относительно которого задана позиция
+     * @param {string} position Позиция: одно из top/right/bottom
+     * @param {Node} elem       Элемент, который будет позиционирован
+     */
+    function positionAt(anchor, position, elem) {
+      var X, Y;
+      var rect = anchor.getBoundingClientRect();
+      switch(position) {
+        case 'top':
+          X = rect.left;
+          Y = rect.top - elem.offsetHeight;
+          break;
+        case 'right':
+          X = rect.left + anchor.offsetWidth;
+          Y = rect.top;
+          break;
+        case 'bottom':
+          X = rect.left;
+          Y = rect.top + anchor.offsetHeight;
+          break;
+      }
+      elem.style.left = X + 'px';
+      elem.style.top = Y + 'px';
+    }
+
+    /**
+     * Показывает заметку с текстом html на позиции position
+     * относительно элемента anchor
+     */
+    function showNote(anchor, position, html) {
+      var note = document.createElement('div');
+      note.classList.add('note');
+      note.innerHTML = html;
+      document.body.appendChild(note);
+      positionAt(anchor, position, note);
+    }
+
+    // проверка работоспособности
+    var blockquote = document.querySelector('blockquote');
+
+    showNote(blockquote, "top", "заметка сверху");
+    showNote(blockquote, "right", "заметка справа");
+    showNote(blockquote, "bottom", "заметка снизу");

@@ -1,0 +1,200 @@
+Нет, разный
+Например, для "<h1>Something</h1>"
+
+
+
+(function() {
+  if(!Element.prototype.remove) {
+    Element.prototype.remove = function() {
+      if(this.parentNode) {
+        this.parentNode.removeChild(this);
+      }
+    }  
+  }
+})();
+
+
+
+function insertAfter(elem, refElem) {
+  var parent = refElem.parentNode;
+  return parent.insertBefore(elem, refElem.nextSibling);
+}
+
+
+
+function removeChildren(elem) {
+  while(elem.lastChild) {
+    elem.removeChild(elem.lastChild);
+  }
+}
+или elem.innerHTML = '';
+
+
+
+Потому что текст "ааа" за пределами <tr></tr> таблицы автоматически переносится выше тега <table>
+
+
+
+var ul = document.createElement('ul');
+document.body.appendChild(ul);    
+var nextItem;
+while (true) {
+  nextItem = prompt('Enter item name:');
+  if (!nextItem) break;
+      
+  var li = document.createElement('li');
+  var txt = document.createTextNode(nextItem);
+  li.appendChild(txt);
+  ul.appendChild(li);
+}
+
+
+
+function createTree(container, data) {
+var topKeys = Object.keys(data);
+if (topKeys.length) {
+  var ul = document.createElement('ul');
+  for (let i = 0; i < topKeys.length; i++) {
+      var li = document.createElement('li');
+      var txt = document.createTextNode(topKeys[i]);
+      li.appendChild(txt);
+      createTree(li, data[topKeys[i]]);
+      ul.appendChild(li);
+  }
+  container.appendChild(ul);
+  }
+}
+
+
+
+var lis = document.getElementsByTagName('li');
+for (let i = 0; i < lis.length; i++) {
+  var liText = lis[i].childNodes[0];
+  var childCount = lis[i].getElementsByTagName('li').length;
+  if (childCount)
+    liText.textContent += (" [" + childCount + "]");
+}
+
+
+
+function daysInMonth (month, year) {
+  return new Date(year, month, 0).getDate();
+}
+
+function rightDayOfWeek(day) {
+  if (day == 0)
+    day = 6;
+  else
+    day--;
+  return day;
+}
+function createCalendar(id, year, month) {
+  var elem = document.getElementById(id);
+  month--;
+  var table = document.createElement('table');
+  var tr = document.createElement('tr');
+  var days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+  for (let i = 0; i < 7; i++) {
+    var th = document.createElement('th');
+    th.textContent = days[i];
+    tr.appendChild(th);
+  }
+  table.appendChild(tr);
+  
+  var date = new Date();
+  date.setFullYear(year);
+  date.setMonth(month);
+  date.setDate(1);
+  
+  var startDay = rightDayOfWeek(date.getDay());
+  var daysLeft = daysInMonth(month+1, year);
+  var counter = 1;
+  for (let j = 0; j < daysLeft/7+2; j++) {
+    tr = document.createElement('tr');
+    for (let k = 0; k < 7; k++) {
+      var td = document.createElement('td');
+      if (k == startDay) {
+        if (counter > daysLeft) {
+          td.textContent = '';
+        } else {
+          td.textContent = counter++;
+        }
+        startDay++;
+        if (startDay == 7) startDay = 0;
+      }
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+    if (counter > daysLeft) break;
+  }
+  elem.appendChild(table);
+}
+createCalendar('calendar', 2012, 11);
+
+
+
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+
+  <input type="button" onclick="clockStart()" value="Start">
+
+  <input type="button" onclick="clockStop()" value="Stop">
+  
+  <div class="clock">
+    <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
+  </div>
+  <script type="text/javascript" charset="utf-8">
+    var hours = document.getElementsByClassName('hours')[0];
+    var minutes = document.getElementsByClassName('minutes')[0];
+    var seconds = document.getElementsByClassName('seconds')[0];
+    
+    hours.style.color = 'red';
+    minutes.style.color = 'green';
+    seconds.style.color = 'blue';
+    
+    var h = 0;
+    var m = 0;
+    var s = 0;
+    
+    function numToTimerDigit(num) {
+      if (num < 10) {
+        num = "0" + num;
+      }
+      return num;
+    }
+    
+    function updateClock() {
+      seconds.innerHTML = numToTimerDigit(s);
+      minutes.innerHTML = numToTimerDigit(m);
+      hours.innerHTML = numToTimerDigit(h);
+    }
+    
+    var interval;
+    
+    function clockStart() {
+      interval = setInterval(function() {
+        s++;
+        if (s == 60) {
+          s = 0;
+          m++;
+        }
+        if (m == 60) {
+          m = 0;
+          h++;
+        }
+        updateClock();
+      }, 1000);
+    }
+    
+    function clockStop() {
+      h = m = s = 0;
+      updateClock();
+      clearInterval(interval);
+    }
+  </script>
+</body>
+
+</html>
